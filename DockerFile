@@ -1,0 +1,18 @@
+FROM centos
+
+RUN yum install -y java
+
+VOLUME /tmp
+
+ADD /spring-boot-web-0.0.1-SNAPSHOT.jar myapp.jar
+
+RUN sh -c 'touch /myapp.jar'
+
+ENTRYPOINT ["java","-Djava.security.edg=file:/dev/./urandom","-jar","myapp.jar"]
+
+
+
+====================
+docker build -t spring-boot-web .
+
+docker run -d -p 8080:8080 spring-boot-web
